@@ -1,17 +1,26 @@
+/**
+ * Represents a base User.
+ * This class is extended by Customer.
+ * Demonstrates Inheritance (as a base class).
+ */
 public class User {
-    private String userId;
-    private String name;
-    private String email;
-    private String password; // In a real app, this should be hashed
+    // Fields are 'protected' so child classes (like Customer) can access them
+    protected String userId;
+    protected String name;
+    protected String email;
 
-    public User(String userId, String name, String email, String password) {
+    /**
+     * Corrected 3-argument constructor.
+     * This fixes the compilation error in Customer.java.
+     */
+    public User(String userId, String name, String email) {
         this.userId = userId;
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
-    // Getters
+    // --- Getters ---
+
     public String getUserId() {
         return userId;
     }
@@ -23,11 +32,5 @@ public class User {
     public String getEmail() {
         return email;
     }
-
-    // A simple method to display user details
-    public void displayDetails() {
-        System.out.println("User ID: " + userId);
-        System.out.println("Name: " + name);
-        System.out.println("Email: " + email);
-    }
 }
+

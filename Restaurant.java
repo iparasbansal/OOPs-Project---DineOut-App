@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a restaurant with its details and menu.
+ * Represents a Restaurant, containing its details and a menu.
+ * Demonstrates Encapsulation and Composition.
  */
 public class Restaurant {
     private String restaurantId;
@@ -24,6 +25,11 @@ public class Restaurant {
     }
 
     // --- Getters ---
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,39 +42,70 @@ public class Restaurant {
         return rating;
     }
 
+    /**
+     * Added the missing getter method for averageCostForTwo.
+     * This fixes the compilation error in DineOutGUI.java.
+     */
+    public double getAverageCostForTwo() {
+        return averageCostForTwo;
+    }
+    
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Returns a copy of the menu to maintain encapsulation.
+     */
     public List<MenuItem> getMenu() {
-        return new ArrayList<>(menu); // Return a copy to maintain encapsulation
+        return new ArrayList<>(menu); 
     }
-    
-    // --- Methods ---
+
+    // --- Public Methods ---
+
     public void addMenuItem(MenuItem item) {
         this.menu.add(item);
     }
 
-    public String getDetailsAsString() {
-        return String.format("Restaurant: %s\nCuisine: %s | Rating: %.1f/5.0\nLocation: %s\nAverage Cost for Two: ₹%.1f",
-                name, cuisineType, rating, location, averageCostForTwo);
-    }
-
-    public String getMenuAsString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("--- Menu for ").append(name).append(" ---\n");
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.get(i);
-            sb.append(String.format("%d. %s - ₹%.1f\n", (i + 1), item.getName(), item.getPrice()));
-        }
-        sb.append("------------------------");
-        return sb.toString();
-    }
-    
+    /**
+     * Returns a simple string representation of the restaurant.
+     * Used by the JList component.
+     */
     @Override
     public String toString() {
-        // Used by JList for displaying the name
-        return name;
+        return name + " (" + cuisineType + ")";
+    }
+
+    /**
+     * Generates a formatted string of the restaurant's details.
+     * Required by the GUI.
+     * @return String representation of restaurant details.
+     */
+    public String getDetailsAsString() {
+        return "Restaurant: " + name + "\n" +
+               "Cuisine: " + cuisineType + " | Rating: " + rating + "/5.0\n" +
+               "Location: " + location + "\n" +
+               "Avg. Cost for Two: ₹" + averageCostForTwo;
+    }
+
+    /**
+     * Generates a formatted string of the restaurant's menu.
+     * Required by the GUI.
+     * @return String representation of the menu.
+     */
+    public String getMenuAsString() {
+        if (menu.isEmpty()) {
+            return "Menu is not available for " + name;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Menu for " + name + " ---\n");
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.get(i);
+            sb.append(String.format("%d. %-20s - ₹%.2f\n", (i + 1), item.getName(), item.getPrice()));
+        }
+        sb.append("------------------------\n");
+        return sb.toString();
     }
 }
 

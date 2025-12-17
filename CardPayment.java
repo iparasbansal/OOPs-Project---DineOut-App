@@ -16,7 +16,6 @@ public class CardPayment extends Payment {
     public void processPayment(double amount) {
         setAmount(amount);
         System.out.println("Processing card payment of ₹" + amount + " for " + cardHolderName);
-        // Simulate payment gateway interaction
         System.out.println("Payment successful with Card ending in " + cardNumber.substring(cardNumber.length() - 4));
     }
 }
